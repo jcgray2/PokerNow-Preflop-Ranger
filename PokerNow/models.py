@@ -29,13 +29,15 @@ class GameState:
         self.is_your_turn = is_your_turn
 
 class PlayerInfo:
-    def __init__(self, name, stack, bet_value, cards, status, hand_message=''):
+    def __init__(self, name, stack, bet_value, cards, status, hand_message='', position=None, position_name=None):
         self.name = name
         self.stack = stack
         self.bet_value = bet_value
         self.cards = cards
         self.status = status
         self.hand_message = hand_message
+        self.position = position
+        self.position_name = position_name
 
 class PlayerState(Enum):
     CURRENT = auto()

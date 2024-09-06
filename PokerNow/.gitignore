@@ -1,0 +1,7 @@
+@"
+__pycache__/
+*.pyc
+chromedriver.exe
+geckodriver.exe
+pokernow_cookies.pkl
+"@ | Out-File -FilePath .gitignore -Encoding ascii
