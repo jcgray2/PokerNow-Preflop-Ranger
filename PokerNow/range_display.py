@@ -54,28 +54,12 @@ class RangeDisplay:
             self.driver.quit()
 
     def display_players_info(self, players_info):
-        print("\nCurrent Players Information:")
-        print(f"Number of active players: {len(players_info)}")
-        active_players = [p for p in players_info if p.status != 'Folded']
-        folded_players = [p for p in players_info if p.status == 'Folded']
-        max_bet = max(float(p.bet_value) for p in players_info)
-
-        print("Active Players:")
-        for player in active_players:
-            bet_value = float(player.bet_value)
-            to_call = max_bet - bet_value
-            status = "** Current **" if player.status == 'Current' else player.status
-            print(f"Name: {player.name} ({status}) - Position: {player.position_name}")
+        print("\nPlayers Information:")
+        for player in players_info:
+            dealer_status = "(BTN)" if player.position_name == "BTN" else ""
+            print(f"Player: {player.name} {dealer_status}")
             print(f"  Stack: {player.stack}")
-            print(f"  Bet: {player.bet_value}")
-            if to_call > 0:
-                print(f"  To Call: {to_call:.2f}")
-            print("  ---")
-
-        print("\nFolded Players:")
-        for player in folded_players:
-            print(f"Name: {player.name} - Position: {player.position_name}")
-            print(f"  Stack: {player.stack}")
+            print(f"  Position: {player.position}")
             print("  ---")
 
 if __name__ == "__main__":

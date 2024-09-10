@@ -28,12 +28,12 @@ class GameState:
         self.winners = winners
         self.is_your_turn = is_your_turn
 
+#removed cards
 class PlayerInfo:
-    def __init__(self, name, stack, bet_value, cards, status, hand_message='', position=None, position_name=None):
+    def __init__(self, name, stack, bet_value, status, hand_message='', position=None, position_name=None):
         self.name = name
         self.stack = stack
         self.bet_value = bet_value
-        self.cards = cards
         self.status = status
         self.hand_message = hand_message
         self.position = position

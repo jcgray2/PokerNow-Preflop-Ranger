@@ -31,51 +31,38 @@ class GameStateManager:
         self.player_count = 0
 
     def get_players_info(self):
-        players = []
         player_elements = self.element_helper.get_elements('.table-player')
-        
-        active_players = []
-        for p in player_elements:
-            name = self.element_helper.get_text('.table-player-name a', p) or ""
-            stack = self.element_helper.get_text('.table-player-stack .chips-value', p) or "Unknown"
-            
-            # Only consider players with a valid name and a known stack
-            if name and not name.startswith("Player") and stack != "Unknown":
-                active_players.append((name, p))
-
-        self.player_count = len(active_players)
         dealer_position = self.get_dealer_position()
+        print(f"Dealer position: {dealer_position}")
 
-        for i, (name, player_element) in enumerate(active_players):
+        players = []
+        for i, player_element in enumerate(player_elements):
+            name = self.element_helper.get_text('.table-player-name a', player_element) or f"Player {i+1}"
             stack = self.element_helper.get_text('.table-player-stack .chips-value', player_element) or "Unknown"
-            bet_value = self.element_helper.get_text('.table-player-bet-value .chips-value', player_element) or "0"
-            status = self.get_player_status(player_element)
             
-            # Calculate position relative to dealer, making BTN position 0
-            position = (dealer_position - i) % self.player_count
-            position_name = self.get_position_name(position)
+            if not name.startswith("Player") and stack != "Unknown":
+                is_dealer = str(i + 1) == dealer_position  # +1 because dealer position is 1-indexed
+                players.append(PlayerInfo(
+                    name=name,
+                    stack=stack,
+                    bet_value=self.element_helper.get_text('.table-player-bet-value .chips-value', player_element) or "0",
+                    status=self.get_player_status(player_element),
+                    position=i,
+                    position_name="BTN" if is_dealer else ""
+                ))
             
-            players.append(PlayerInfo(
-                name=name,
-                stack=stack,
-                bet_value=bet_value,
-                cards=[],
-                status=status,
-                position=position,
-                position_name=position_name
-            ))
-        
-        # Sort players by position
-        players.sort(key=lambda x: x.position)
+            print(f"Player {i + 1}: Name: {name}, Stack: {stack}, Is Dealer: {str(i + 1) == dealer_position}")
+
         return players
 
     def get_dealer_position(self):
-        player_elements = self.element_helper.get_elements('.table-player')
-        for i, player_element in enumerate(player_elements):
-            dealer_button = self.element_helper.get_element('.dealer-button-ctn', player_element)
-            if dealer_button:
-                return i
-        return 0  # Default to 0 if not found
+        dealer_button = self.element_helper.get_element('.dealer-button-ctn')
+        if dealer_button:
+            position = dealer_button.get_attribute('class').split('-')[-1]
+            print(f"Dealer button found. Position: {position}")
+            return position
+        print("Dealer button not found. Returning 'unknown'.")
+        return 'unknown'
 
     def is_player_sitting_out(self, player_element):
         return 'player-sitting-out' in player_element.get_attribute('class')
