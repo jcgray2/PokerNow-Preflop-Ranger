@@ -56,10 +56,9 @@ class RangeDisplay:
     def display_players_info(self, players_info):
         print("\nPlayers Information:")
         for player in players_info:
-            dealer_status = "(BTN)" if player.position_name == "BTN" else ""
-            print(f"Player: {player.name} {dealer_status}")
+            print(f"Player: {player.name} ({player.position_name})")
             print(f"  Stack: {player.stack}")
-            print(f"  Position: {player.position}")
+            print(f"  Position Number: {player.position_number}")
             print("  ---")
 
 if __name__ == "__main__":

@@ -28,19 +28,33 @@ class GameState:
         self.winners = winners
         self.is_your_turn = is_your_turn
 
+POSITION_NAMES = {
+    0: "SB",
+    1: "BB",
+    2: "UTG",
+    3: "UTG+1",
+    4: "LJ",
+    5: "HJ",
+    6: "CO",
+    7: "BTN"
+}
+
 #removed cards
+
 class PlayerInfo:
-    def __init__(self, name, stack, bet_value, status, hand_message='', position=None, position_name=None):
+    def __init__(self, name, stack, bet_value, status, position, position_name):
         self.name = name
         self.stack = stack
         self.bet_value = bet_value
         self.status = status
-        self.hand_message = hand_message
         self.position = position
         self.position_name = position_name
+        self.position_number = [k for k, v in POSITION_NAMES.items() if v == position_name][0]
 
 class PlayerState(Enum):
     CURRENT = auto()
     ACTIVE = auto()
     FOLDED = auto()
     OFFLINE = auto()
+
+
