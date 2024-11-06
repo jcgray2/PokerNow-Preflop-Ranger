@@ -1,7 +1,9 @@
-#PokerNow Automatic Preflop Ranger
+# PokerNow Automatic Preflop Ranger
 # PokerNow Client
 
-A client for interacting with PokerNow.club using Selenium.
+Added code to automatically give preflop charts based on the action of the game.
+ 
+Credit to Zehmosu, who worked on: A client for interacting with PokerNow.club using Selenium.
 
 ## Table of Contents
 
