@@ -1,5 +1,4 @@
 # PokerNow Automatic Preflop Ranger
-# PokerNow Client
 
 Added code to automatically give preflop charts based on the action of the game.
  
