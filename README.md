@@ -1,3 +1,4 @@
+#PokerNow Automatic Preflop Ranger
 # PokerNow Client
 
 A client for interacting with PokerNow.club using Selenium.
